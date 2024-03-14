@@ -1,4 +1,4 @@
-# NestJS Todo List
+# Learning NestJS Todo List
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript Todo List API

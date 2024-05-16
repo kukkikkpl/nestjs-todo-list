@@ -5,7 +5,6 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 export class DatabaseConfigService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const entities = (process.env.TYPEORM_ENTITIES || '').split(',');
-    console.log(entities);
     const migrations = (process.env.TYPEORM_MIGRATIONS || '').split(',');
 
     return {

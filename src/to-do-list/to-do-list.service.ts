@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { TodoList } from './to-do-list.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Todo } from './to-do-list.entity';
+import { Repository } from 'typeorm';
+import { TodoListCreationDto } from './to-do-list.dto';
 
 @Injectable()
 export class TodoListsService {
-  private readonly todoList: TodoList[] = [];
+  constructor(
+    @InjectRepository(Todo) private todoRepository: Repository<Todo>,
+  ) {}
 
-  create(todoList: TodoList) {
-    this.todoList.push(todoList);
+  async create(todoCreationDto: TodoListCreationDto): Promise<Todo> {
+    const todo = new Todo();
+    todo.title = todoCreationDto.title;
+    return await this.todoRepository.save(todo);
   }
 
-  findAll(): TodoList[] {
-    return this.todoList;
+  async findAll(): Promise<Todo[]> {
+    return await this.todoRepository.find();
+  }
+
+  async findOne(id: number): Promise<Todo | null> {
+    return await this.todoRepository.findOneBy({ id: id });
   }
 }

@@ -13,8 +13,8 @@ export class TodoListController {
   }
 
   @Get(':id')
-  findOne(@Param() params: any): string {
-    return `Get to-do-list id ${params.id}`;
+  findOne(@Param('id') id: string) {
+    return this.todoListService.findOne(+id);
   }
 
   @Post()
